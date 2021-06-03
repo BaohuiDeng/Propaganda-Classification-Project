@@ -1,0 +1,25 @@
+import pandas as pd
+
+#Loading final Dataset
+reviews = []
+data  = pd.read_excel('~/anaconda3/MasterProject/finalDataset.xlsx', engine='openpyxl')
+df = pd.DataFrame(data.astype(str) , columns = ['Sentence','SUBJprop'])
+
+from scipy.stats import chisquare
+
+#        (observed-expected)^2
+#  sum (-----------------------)
+#               expected
+
+# The input of chisquare should consist of 2 lists of integer, list of observed value and list of expected value
+# If the input consists of only list, then it will be considered as observed value
+# each element in the list of expected value is the mean value of all elements in the list of observed value
+
+chi = []
+
+for index, row in df.iterrows():
+    sentence = row['Sentence']
+    prop = int(row['SUBJprop'])
+    chi.append(prop)
+
+print(chisquare(chi))
